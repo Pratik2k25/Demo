@@ -4,49 +4,49 @@ import { FadeImage } from "@/components/fade-image";
 
 const features = [
   {
-    title: "Smart Temperature Control",
-    description: "Innovation",
-    image: "/images/d18fe616-5596-4559-90f5-a90f5397d0d8.png",
+    title: "AI-Powered Trip Planning",
+    description: "Smart Planning",
+    image: "/images/ai-planning.jpg",
   },
   {
-    title: "Ultra-Light Carbon Frame",
-    description: "Performance",
-    image: "/images/e26fa9c3-966d-4966-94a4-954a1e511c1c.png",
+    title: "All Services in One Platform",
+    description: "Integrated",
+    image: "/images/integrated-platform.jpg",
   },
   {
-    title: "Weather-Resistant Design",
-    description: "Durability",
-    image: "/images/car.jpg",
+    title: "Local Guide Matching",
+    description: "Authentic",
+    image: "/images/local-guide.jpg",
   },
   {
-    title: "Integrated GPS Tracking",
-    description: "Navigation",
-    image: "/images/204cee22-9e85-49e8-9303-1d309af626b0.png",
+    title: "Transparent Booking System",
+    description: "Trust",
+    image: "/images/booking-system.jpg",
   },
   {
-    title: "Built-In LED Flashlight",
-    description: "Visibility",
-    image: "/images/led-flashlight-bottle.png",
+    title: "Hidden Destination Discovery",
+    description: "Explore",
+    image: "/images/hidden-gems.jpg",
   },
   {
-    title: "Self-Heating Technology",
-    description: "Comfort",
-    image: "/images/heating-campfire.png",
+    title: "Travel Companion Matching",
+    description: "Connect",
+    image: "/images/companion.jpg",
   },
 ];
 
 export function FeaturedProductsSection() {
   return (
-    <section id="technology" className="bg-background">
+    <section id="features" className="bg-background">
       {/* Section Title */}
       <div className="px-6 py-20 text-center md:px-12 md:py-28 lg:px-20 lg:py-32 lg:pb-20">
         <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-4xl lg:text-5xl">
-          Engineered for Excellence.
+          One Platform.
           <br />
-          Designed for Adventure.
+          Endless Possibilities.
         </h2>
         <p className="mx-auto mt-6 max-w-md text-sm text-muted-foreground">
-          Technology
+          Features
         </p>
       </div>
 

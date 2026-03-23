@@ -1,10 +1,10 @@
 "use client";
 
 const specs = [
-  { label: "Weight", value: "400g" },
-  { label: "Capacity", value: "0.5L - 2L" },
-  { label: "Setup", value: "2 min" },
-  { label: "Packed size", value: "30 x 15 cm" },
+  { label: "IIM Bodh Gaya", value: "Incubated" },
+  { label: "Startup Bihar", value: "Selected" },
+  { label: "DPIIT", value: "Recognized" },
+  { label: "Seed Funding", value: "10 Lakh" },
 ];
 
 export function EditorialSection() {

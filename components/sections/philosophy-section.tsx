@@ -5,8 +5,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 
 export function PhilosophySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [alpineTranslateX, setAlpineTranslateX] = useState(-100);
-  const [forestTranslateX, setForestTranslateX] = useState(100);
+  const [problemTranslateX, setProblemTranslateX] = useState(-100);
+  const [solutionTranslateX, setSolutionTranslateX] = useState(100);
   const [titleOpacity, setTitleOpacity] = useState(1);
   const rafRef = useRef<number | null>(null);
 
@@ -22,11 +22,11 @@ export function PhilosophySection() {
     const scrolled = -rect.top;
     const progress = Math.max(0, Math.min(1, scrolled / scrollableRange));
     
-    // Alpine comes from left (-100% to 0%)
-    setAlpineTranslateX((1 - progress) * -100);
+    // Problem comes from left (-100% to 0%)
+    setProblemTranslateX((1 - progress) * -100);
     
-    // Forest comes from right (100% to 0%)
-    setForestTranslateX((1 - progress) * 100);
+    // Solution comes from right (100% to 0%)
+    setSolutionTranslateX((1 - progress) * 100);
     
     // Title fades out as blocks come together
     setTitleOpacity(1 - progress);
@@ -55,7 +55,7 @@ export function PhilosophySection() {
   }, [updateTransforms]);
 
   return (
-    <section id="products" className="bg-background">
+    <section id="destinations" className="bg-background">
       {/* Scroll-Animated Product Grid */}
       <div ref={sectionRef} className="relative" style={{ height: "200vh" }}>
         <div className="sticky top-0 h-screen flex items-center justify-center">
@@ -66,54 +66,54 @@ export function PhilosophySection() {
               style={{ opacity: titleOpacity }}
             >
               <h2 className="text-[12vw] font-medium leading-[0.95] tracking-tighter text-foreground md:text-[10vw] lg:text-[8vw] text-center px-6">
-                Meet Alpine & Forest.
+                Problem & Solution.
               </h2>
             </div>
 
             {/* Product Grid */}
             <div className="relative z-10 grid grid-cols-1 gap-4 px-6 md:grid-cols-2 md:px-12 lg:px-20">
-              {/* Alpine Image - comes from left */}
+              {/* Problem Image - comes from left */}
               <div 
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl"
                 style={{
-                  transform: `translate3d(${alpineTranslateX}%, 0, 0)`,
-                  WebkitTransform: `translate3d(${alpineTranslateX}%, 0, 0)`,
+                  transform: `translate3d(${problemTranslateX}%, 0, 0)`,
+                  WebkitTransform: `translate3d(${problemTranslateX}%, 0, 0)`,
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
               >
                 <Image
-                  src="/images/product-backpack.png"
-                  alt="V1 Expedition Backpack in alpine setting"
+                  src="/images/bihar-culture.jpg"
+                  alt="Current travel challenges in Bihar"
                   fill
                   className="object-cover"
                 />
                 <div className="absolute bottom-6 left-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    Alpine $299
+                    The Problem
                   </span>
                 </div>
               </div>
 
-              {/* Forest Image - comes from right */}
+              {/* Solution Image - comes from right */}
               <div 
                 className="relative aspect-[4/3] overflow-hidden rounded-2xl"
                 style={{
-                  transform: `translate3d(${forestTranslateX}%, 0, 0)`,
-                  WebkitTransform: `translate3d(${forestTranslateX}%, 0, 0)`,
+                  transform: `translate3d(${solutionTranslateX}%, 0, 0)`,
+                  WebkitTransform: `translate3d(${solutionTranslateX}%, 0, 0)`,
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden',
                 }}
               >
                 <Image
-                  src="/images/02cdc426-dff4-4dff-b131-1b134c3699b5.png"
-                  alt="V1 Thermal mug in forest setting"
+                  src="/images/bihar-river.jpg"
+                  alt="SafarUp integrated travel solution"
                   fill
                   className="object-cover"
                 />
                 <div className="absolute bottom-6 left-6">
                   <span className="backdrop-blur-md px-4 py-2 text-sm font-medium rounded-full bg-[rgba(255,255,255,0.2)] text-white">
-                    Forest $199
+                    Our Solution
                   </span>
                 </div>
               </div>
@@ -126,11 +126,10 @@ export function PhilosophySection() {
       <div className="px-6 py-20 md:px-12 md:py-28 lg:px-20 lg:py-36 lg:pb-14">
         <div className="text-center">
           <p className="text-xs uppercase tracking-widest text-muted-foreground">
-            First generation
+            Why SafarUp
           </p>
           <p className="mt-8 leading-relaxed text-muted-foreground text-3xl text-center">
-            Alpine & Forest are high-tech outdoor accessories designed for modern adventurers. 
-            Lightweight, durable, and engineered for extreme conditions.
+            Multiple apps for one trip. No personalized planning. Limited access to trusted guides. Hidden destinations undiscovered. SafarUp solves it all with one integrated platform.
           </p>
         </div>
       </div>
