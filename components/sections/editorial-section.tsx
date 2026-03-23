@@ -66,15 +66,13 @@ export function EditorialSection() {
         ))}
       </div>
 
-      {/* Full-width Video */}
+      {/* Full-width Image */}
       <div className="relative aspect-[16/9] w-full md:aspect-[21/9]">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-          src="/videos/bcdafadc-cb7e-4cb7-9cbf-edcbaf2360a5_1.mp4"
+        <Image
+          src="/images/bihar-panorama.jpg"
+          alt="Panoramic view of Bihar Buddhist circuit"
+          fill
+          className="object-cover"
         />
       </div>
     </section>

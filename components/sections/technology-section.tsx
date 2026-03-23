@@ -59,26 +59,26 @@ function ScrollRevealText({ text }: { text: string }) {
 
 const sideImages = [
   {
-    src: "/images/gallery-5.jpg",
-    alt: "Gangetic dolphin sanctuary",
+    src: "/images/tech-side-1.jpg",
+    alt: "Vikramshila Buddhist ruins Bihar",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/gallery-6.jpg",
-    alt: "Rajgir hilltop panorama",
+    src: "/images/tech-side-2.jpg",
+    alt: "Bihar Sikki grass craft artisan",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/gallery-7.jpg",
-    alt: "Local Bihar market",
+    src: "/images/tech-side-3.jpg",
+    alt: "Gridhakuta Hill sunset Rajgir",
     position: "right",
     span: 1,
   },
   {
-    src: "/images/gallery-8.jpg",
-    alt: "Kesariya Stupa at sunset",
+    src: "/images/tech-side-4.jpg",
+    alt: "Traditional Mithila wedding Bihar",
     position: "right",
     span: 1,
   },

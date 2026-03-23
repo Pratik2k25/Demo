@@ -6,32 +6,32 @@ const features = [
   {
     title: "AI-Powered Trip Planning",
     description: "Smart Planning",
-    image: "/images/ai-planning.jpg",
+    image: "/images/feature-ai-planning.jpg",
   },
   {
     title: "All Services in One Platform",
     description: "Integrated",
-    image: "/images/integrated-platform.jpg",
+    image: "/images/feature-integrated.jpg",
   },
   {
     title: "Local Guide Matching",
     description: "Authentic",
-    image: "/images/local-guide.jpg",
+    image: "/images/feature-guide.jpg",
   },
   {
     title: "Transparent Booking System",
     description: "Trust",
-    image: "/images/booking-system.jpg",
+    image: "/images/feature-booking.jpg",
   },
   {
     title: "Hidden Destination Discovery",
     description: "Explore",
-    image: "/images/hidden-gems.jpg",
+    image: "/images/feature-hidden.jpg",
   },
   {
     title: "Travel Companion Matching",
     description: "Connect",
-    image: "/images/companion.jpg",
+    image: "/images/feature-companion.jpg",
   },
 ];
 
