@@ -16,8 +16,8 @@ export function TestimonialsSection() {
       {/* About Image */}
       <div className="relative aspect-[16/9] w-full">
         <Image
-          src="/images/bihar-hero.jpg"
-          alt="Bihar temple landscape at sunrise"
+          src="/images/about-bihar.jpg"
+          alt="Aerial view of Bihar Buddhist circuit heritage sites"
           fill
           className="object-cover"
         />

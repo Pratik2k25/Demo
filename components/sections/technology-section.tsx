@@ -14,7 +14,6 @@ function ScrollRevealText({ text }: { text: string }) {
       const rect = containerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
       
-      // Slower animation - more viewport range
       const startOffset = windowHeight * 0.9;
       const endOffset = windowHeight * 0.1;
       
@@ -26,7 +25,7 @@ function ScrollRevealText({ text }: { text: string }) {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll();
     
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -36,7 +35,7 @@ function ScrollRevealText({ text }: { text: string }) {
   return (
     <p
       ref={containerRef}
-      className="text-3xl font-semibold leading-snug md:text-4xl lg:text-5xl"
+      className="text-2xl font-semibold leading-snug md:text-3xl lg:text-4xl"
     >
       {words.map((word, index) => {
         const wordProgress = index / words.length;
@@ -60,26 +59,26 @@ function ScrollRevealText({ text }: { text: string }) {
 
 const sideImages = [
   {
-    src: "/images/gallery-1.jpg",
-    alt: "Bihar countryside landscape",
+    src: "/images/gallery-5.jpg",
+    alt: "Gangetic dolphin sanctuary",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/gallery-2.jpg",
-    alt: "Buddhist monastery Bihar",
+    src: "/images/gallery-6.jpg",
+    alt: "Rajgir hilltop panorama",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/gallery-3.jpg",
-    alt: "Sonepur Mela festival",
+    src: "/images/gallery-7.jpg",
+    alt: "Local Bihar market",
     position: "right",
     span: 1,
   },
   {
-    src: "/images/gallery-4.jpg",
-    alt: "Madhubani art artisan",
+    src: "/images/gallery-8.jpg",
+    alt: "Kesariya Stupa at sunset",
     position: "right",
     span: 1,
   },
@@ -89,11 +88,17 @@ export function TechnologySection() {
   const sectionRef = useRef<HTMLElement>(null);
   const textSectionRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [textProgress, setTextProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   
   const descriptionText = "SafarUp is building a structured and AI-powered travel ecosystem to connect travelers with authentic experiences across Bihar and beyond. Smart itinerary planning, local guide matching, transparent booking, and hidden destination discovery - all in one integrated platform.";
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
     const handleScroll = () => {
       if (!sectionRef.current) return;
       
@@ -103,21 +108,6 @@ export function TechnologySection() {
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
       
       setScrollProgress(progress);
-
-      // Text scroll progress
-      if (textSectionRef.current) {
-        const textRect = textSectionRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
-        const startOffset = windowHeight * 0.9;
-        const endOffset = windowHeight * 0.1;
-        
-        const totalDistance = startOffset - endOffset;
-        const currentPosition = startOffset - textRect.top;
-        
-        const newTextProgress = Math.max(0, Math.min(1, currentPosition / totalDistance));
-        setTextProgress(newTextProgress);
-      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -125,6 +115,7 @@ export function TechnologySection() {
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkMobile);
     };
   }, []);
 
@@ -133,26 +124,145 @@ export function TechnologySection() {
   
   // Image transforms start after title fades (0.2 to 1)
   const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
-  
-  // Smooth interpolations
-  const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
-  const centerHeight = 100 - (imageProgress * 30); // 100% to 70%
-  const sideWidth = imageProgress * 22; // 0% to 22%
-  const sideOpacity = imageProgress;
-  const sideTranslateLeft = -100 + (imageProgress * 100); // -100% to 0%
-  const sideTranslateRight = 100 - (imageProgress * 100); // 100% to 0%
-  const borderRadius = imageProgress * 24; // 0px to 24px
-  const gap = imageProgress * 16; // 0px to 16px
 
-  // Calculate grayscale for text section based on textProgress
-  const grayscaleAmount = Math.round((1 - textProgress) * 100);
+  // Mobile layout
+  if (isMobile) {
+    const mobileProgress = imageProgress;
+    const mobileCenterHeight = 60 - (mobileProgress * 15);
+    const mobileGap = mobileProgress * 8;
+    const mobileBorderRadius = mobileProgress * 16;
+    const mobileSideOpacity = mobileProgress;
+    const mobileSideHeight = mobileProgress * 18;
+
+    return (
+      <section ref={sectionRef} className="relative bg-foreground">
+        <div className="sticky top-0 h-screen overflow-hidden">
+          <div className="flex h-full w-full flex-col items-center justify-center px-4" style={{ paddingTop: '60px', paddingBottom: '60px' }}>
+            {/* Top Side Images Row */}
+            <div 
+              className="flex w-full gap-2 mb-2"
+              style={{ 
+                height: `${mobileSideHeight}%`,
+                opacity: mobileSideOpacity,
+                gap: `${mobileGap}px`,
+              }}
+            >
+              {sideImages.filter(img => img.position === "left").map((img, idx) => (
+                <div 
+                  key={idx}
+                  className="relative flex-1 overflow-hidden"
+                  style={{ borderRadius: `${mobileBorderRadius}px` }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Main Center Image */}
+            <div 
+              className="relative w-full overflow-hidden"
+              style={{
+                height: `${mobileCenterHeight}%`,
+                borderRadius: `${mobileBorderRadius}px`,
+              }}
+            >
+              <Image
+                src="/images/tech-bihar.jpg"
+                alt="Kesariya Stupa - Ancient Bihar heritage"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-foreground/40" />
+              
+              {/* Title Text */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
+                <h2 className="text-4xl font-medium leading-tight tracking-tight text-white">
+                  {["Escape", "Out", "to Explore."].map((word, index) => {
+                    const wordFadeStart = index * 0.07;
+                    const wordFadeEnd = wordFadeStart + 0.07;
+                    const wordProgress = Math.max(0, Math.min(1, (scrollProgress - wordFadeStart) / (wordFadeEnd - wordFadeStart)));
+                    const wordOpacity = 1 - wordProgress;
+                    const wordBlur = wordProgress * 10;
+                    
+                    return (
+                      <span
+                        key={index}
+                        className="inline-block"
+                        style={{
+                          opacity: wordOpacity,
+                          filter: `blur(${wordBlur}px)`,
+                          marginRight: index < 2 ? '0.3em' : '0',
+                        }}
+                      >
+                        {word}
+                        {index === 1 && <br />}
+                      </span>
+                    );
+                  })}
+                </h2>
+              </div>
+            </div>
+
+            {/* Bottom Side Images Row */}
+            <div 
+              className="flex w-full gap-2 mt-2"
+              style={{ 
+                height: `${mobileSideHeight}%`,
+                opacity: mobileSideOpacity,
+                gap: `${mobileGap}px`,
+              }}
+            >
+              {sideImages.filter(img => img.position === "right").map((img, idx) => (
+                <div 
+                  key={idx}
+                  className="relative flex-1 overflow-hidden"
+                  style={{ borderRadius: `${mobileBorderRadius}px` }}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="h-[200vh]" />
+
+        {/* Description Section */}
+        <div 
+          ref={textSectionRef}
+          className="relative overflow-hidden bg-background px-6 py-20 md:px-12 md:py-32 lg:px-20 lg:py-40"
+        >
+          <div className="relative z-10 mx-auto max-w-4xl">
+            <ScrollRevealText text={descriptionText} />
+          </div>
+        </div>
+      </section>
+    );
+  }
+  
+  // Desktop layout
+  const centerWidth = 100 - (imageProgress * 58);
+  const sideWidth = imageProgress * 22;
+  const sideOpacity = imageProgress;
+  const sideTranslateLeft = -100 + (imageProgress * 100);
+  const sideTranslateRight = 100 - (imageProgress * 100);
+  const borderRadius = imageProgress * 24;
+  const gap = imageProgress * 16;
 
   return (
     <section ref={sectionRef} className="relative bg-foreground">
-      {/* Sticky container for scroll animation */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
-          {/* Bento Grid Container */}
           <div 
             className="relative flex h-full w-full items-stretch justify-center"
             style={{ gap: `${gap}px`, padding: `${imageProgress * 16}px` }}
@@ -178,7 +288,7 @@ export function TechnologySection() {
                   }}
                 >
                   <Image
-                    src={img.src || "/placeholder.svg"}
+                    src={img.src}
                     alt={img.alt}
                     fill
                     className="object-cover"
@@ -198,25 +308,21 @@ export function TechnologySection() {
               }}
             >
               <Image
-                src="/images/bihar-temple.jpg"
-                alt="Ancient temple architecture in Bihar"
+                src="/images/tech-bihar.jpg"
+                alt="Kesariya Stupa - Ancient Bihar heritage"
                 fill
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-foreground/40" />
               
-              {/* Title Text - Fades out word by word with blur */}
-              <div 
-                className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
-              >
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
                 <h2 className="max-w-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl text-5xl">
                   {["Escape", "Out", "to Explore."].map((word, index) => {
-                    // Each word fades out sequentially based on scrollProgress
-                    const wordFadeStart = index * 0.07; // Technology: 0, Meets: 0.07, Wilderness: 0.14
+                    const wordFadeStart = index * 0.07;
                     const wordFadeEnd = wordFadeStart + 0.07;
                     const wordProgress = Math.max(0, Math.min(1, (scrollProgress - wordFadeStart) / (wordFadeEnd - wordFadeStart)));
                     const wordOpacity = 1 - wordProgress;
-                    const wordBlur = wordProgress * 10; // 0px to 10px blur
+                    const wordBlur = wordProgress * 10;
                     
                     return (
                       <span
@@ -258,7 +364,7 @@ export function TechnologySection() {
                   }}
                 >
                   <Image
-                    src={img.src || "/placeholder.svg"}
+                    src={img.src}
                     alt={img.alt}
                     fill
                     className="object-cover"
@@ -271,18 +377,13 @@ export function TechnologySection() {
         </div>
       </div>
 
-      {/* Scroll space to enable animation */}
       <div className="h-[200vh]" />
 
-      {/* Description Section with Background Image and Scroll Reveal */}
+      {/* Description Section */}
       <div 
         ref={textSectionRef}
         className="relative overflow-hidden bg-background px-6 py-24 md:px-12 md:py-32 lg:px-20 lg:py-40"
       >
-        {/* Background Image with Grayscale Filter */}
-        
-
-        {/* Text Content */}
         <div className="relative z-10 mx-auto max-w-4xl">
           <ScrollRevealText text={descriptionText} />
         </div>

@@ -8,29 +8,37 @@ export function GallerySection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [sectionHeight, setSectionHeight] = useState("100vh");
   const [translateX, setTranslateX] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const rafRef = useRef<number | null>(null);
   const lastScrollRef = useRef(0);
 
   const images = [
-    { src: "/images/gallery-1.jpg", alt: "Bihar countryside landscape" },
-    { src: "/images/gallery-2.jpg", alt: "Buddhist monastery interior" },
-    { src: "/images/gallery-3.jpg", alt: "Sonepur Mela festival" },
-    { src: "/images/gallery-4.jpg", alt: "Madhubani art artisan" },
-    { src: "/images/gallery-5.jpg", alt: "Gangetic dolphin sanctuary" },
-    { src: "/images/gallery-6.jpg", alt: "Rajgir hilltop view" },
-    { src: "/images/gallery-7.jpg", alt: "Local market Bihar" },
-    { src: "/images/gallery-8.jpg", alt: "Kesariya Stupa sunset" },
+    { src: "/images/gal-1.jpg", alt: "Patna skyline from Gandhi Ghat" },
+    { src: "/images/gal-2.jpg", alt: "Traditional Madhubani painting art" },
+    { src: "/images/gal-3.jpg", alt: "Hot springs at Rajgir" },
+    { src: "/images/gal-4.jpg", alt: "Traditional Bihar village scene" },
+    { src: "/images/gal-5.jpg", alt: "Ancient Barabar Caves" },
+    { src: "/images/gal-6.jpg", alt: "Sonepur Mela cattle fair" },
+    { src: "/images/gal-7.jpg", alt: "Bihar traditional cuisine" },
+    { src: "/images/gal-8.jpg", alt: "Valmiki National Park" },
   ];
 
   // Calculate section height based on content width
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
     const calculateHeight = () => {
       if (!containerRef.current) return;
+      checkMobile();
       const containerWidth = containerRef.current.scrollWidth;
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
       // Height = viewport height + the extra scroll needed to reveal all content
-      const totalHeight = viewportHeight + (containerWidth - viewportWidth);
+      // Reduce scroll distance on mobile for smoother experience
+      const multiplier = window.innerWidth < 768 ? 0.7 : 1;
+      const totalHeight = viewportHeight + ((containerWidth - viewportWidth) * multiplier);
       setSectionHeight(`${totalHeight}px`);
     };
 
@@ -114,7 +122,7 @@ export function GallerySection() {
             {images.map((image, index) => (
               <div
                 key={index}
-                className="relative h-[70vh] w-[85vw] flex-shrink-0 overflow-hidden rounded-2xl md:w-[60vw] lg:w-[45vw]"
+                className="relative h-[50vh] w-[80vw] flex-shrink-0 overflow-hidden rounded-xl md:h-[70vh] md:w-[60vw] md:rounded-2xl lg:w-[45vw]"
                 style={{
                   transform: 'translateZ(0)',
                   WebkitTransform: 'translateZ(0)',
@@ -125,6 +133,7 @@ export function GallerySection() {
                   alt={image.alt}
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 80vw, (max-width: 1024px) 60vw, 45vw"
                   priority={index < 3}
                 />
               </div>
